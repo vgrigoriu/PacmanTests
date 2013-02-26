@@ -6,7 +6,8 @@ namespace PacmanTests
     public class Pacman
     {
         #region Dictionaries
-        public static Dictionary<string, string> pacmanForwardMoves = new Dictionary<string, string>()
+
+        private static Dictionary<string, string> pacmanForwardMoves = new Dictionary<string, string>()
                                                                           {
                                                                               {"a5", "a4"},
                                                                               {"a4", "a3"},
@@ -30,7 +31,7 @@ namespace PacmanTests
                                                                               {"i2", "i1"},
                                                                           };
 
-        public static Dictionary<string, string> pacmanBackwardMoves = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> pacmanBackwardMoves = new Dictionary<string, string>()
                                                                            {
                                                                                {"i1", "i2"},
                                                                                {"i2", "i3"},
@@ -57,30 +58,40 @@ namespace PacmanTests
 
         public Pacman(string pacmanPosition, bool isMovingForward)
         {
-            PacmanIsMovingForward = isMovingForward;
-            PacmanPosition = pacmanPosition;
+            IsMovingForward = isMovingForward;
+            Position = pacmanPosition;
         }
 
-        public string PacmanPosition { get; private set; }
-        public bool PacmanIsMovingForward { get; private set; }
+        public string Position { get; private set; }
+        public bool IsMovingForward { get; private set; }
+
+        public static Dictionary<string, string> BackwardMoves
+        {
+            get { return pacmanBackwardMoves; }
+        }
+
+        public static Dictionary<string, string> ForwardMoves
+        {
+            get { return pacmanForwardMoves; }
+        }
 
         public void MovePacman()
         {
             var pacmanMoves = PacmanMoves();
-            if (!pacmanMoves.ContainsKey(PacmanPosition))
+            if (!pacmanMoves.ContainsKey(Position))
             {
-                PacmanIsMovingForward = !PacmanIsMovingForward;
+                IsMovingForward = !IsMovingForward;
                 pacmanMoves = PacmanMoves();
             }
 
-            PacmanPosition = pacmanMoves[PacmanPosition];
+            Position = pacmanMoves[Position];
         }
 
         private Dictionary<string, string> PacmanMoves()
         {
-            return PacmanIsMovingForward
-                       ? pacmanForwardMoves
-                       : pacmanBackwardMoves;
+            return IsMovingForward
+                       ? ForwardMoves
+                       : BackwardMoves;
         }
     }
 }

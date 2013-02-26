@@ -13,7 +13,7 @@ namespace PacmanTests
 
             gameState.pacman.MovePacman();
 
-            Assert.Equal("a4", gameState.pacman.PacmanPosition);
+            Assert.Equal("a4", gameState.pacman.Position);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace PacmanTests
             gameState.pacman = new Pacman("i1", true);
 
             gameState.pacman.MovePacman();
-            Assert.False(gameState.pacman.PacmanIsMovingForward);
+            Assert.False(gameState.pacman.IsMovingForward);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace PacmanTests
 
             gameState.pacman.MovePacman();
 
-            Assert.Equal(Pacman.pacmanBackwardMoves["f5"], gameState.pacman.PacmanPosition);
+            Assert.Equal(Pacman.BackwardMoves["f5"], gameState.pacman.Position);
         }
 
         [Fact]
